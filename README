@@ -3,10 +3,10 @@
                   |---------* Data structures *-------|
                   \___________________________________/
 
- ________
-'        `
-~ Brief :
-`________'
+ _______
+'       `
+| Brief :
+`_______'
 
 
   ~> This project contains implementations of classical data structures in C
@@ -33,15 +33,15 @@
 
  ___________________
 '                   `
-~ Quick start guide :
+| Quick start guide :
 `___________________'
 
 
   Each directory contains files to use a data structure. In each one you will
   find several files :
 
-    - A .hxx file that contains macro to define the structure and its functions
-    - A sample of code (main.c, struct.h, struct.c) that show you how to use it
+    - A .hxx file that contains macros to define the structure and functions
+    - A sample of code (main.c, struct.[hc]) that shows you how to use it
 
 
   When you want to use a structure, create 2 files struct.h and struct.c. Put
@@ -55,6 +55,10 @@
 
     # include "struct.hxx"
 
+    // At compile time, this will be replaced by
+    // the defnitions of :
+    //  - The structs
+    //  - The headers of the functions
     STRUCT_HEADER(My_type, Struct_name)
 
     #endif /* !STRUCT_H_ */
@@ -65,6 +69,9 @@
 
     #include "struct.h"
 
+    // At compile time, this will be replaced by :
+    //  - The definition of every functions that you could use with
+    //    this structure.
     STRUCT_SOURCE(My_type, Struct_name)
 
   Now you can just compile it along with your project and/or package it
