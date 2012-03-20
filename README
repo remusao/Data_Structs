@@ -56,7 +56,7 @@
     # include "struct.hxx"
 
     // At compile time, this will be replaced by
-    // the defnitions of :
+    // the definitions of :
     //  - The structs
     //  - The headers of the functions
     STRUCT_HEADER(My_type, Struct_name)
