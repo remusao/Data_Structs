@@ -51,7 +51,6 @@
 //  See bellow for more details about this functions.
 
 
-
 #ifndef STACK_HXX_
 # define STACK_HXX_
 
@@ -71,7 +70,7 @@ typedef char bool;
 //  this macro to declare all the stuff that will be needed to use it.
 ///
 /// @param TYPE Is the type of the element that you want to store in this
-//  structure. If you want to use a stack of integer, simply call this macro
+//  structure. If you want to use a stack of integers, simply call this macro
 //  with  int  as argument. (e.g : STACK_HEADER(int, ...))
 //  
 /// @param NAME Is the name under which your structure will be known after
@@ -227,7 +226,7 @@ typedef char bool;
 /// @param TYPE type of the elements that will be stored by the stack
 /// @param NAME name of the stack structure
 /// @param stack The stack to delete
-/// @param dest The function pointer to call on each element so has to delete
+/// @param dest The function pointer to call on each element so as to delete
 //  them if needed (this pointer could be NULL if no freeing is needed).
 ///
 # define STACK_DELETE(TYPE, NAME)                                             \
