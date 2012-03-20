@@ -1,0 +1,72 @@
+                  __________________________________
+                /                                   \
+                |---------* Data structures *-------|
+                \___________________________________/
+
+ ________
+'        `
+~ Brief :
+`________'
+
+
+  ~> This project contains implementations of classical data structures in C
+  using X-macro to generate generic code. The idea is that you have to
+  "specialize" the structures by giving the type of their elements and the
+  name you want to give to the structure. You could then use functions
+  that are given.
+
+  Structures that you could use by now :
+
+    - *Linked Lists* (list)
+    - Array-based dynamic *Queues* (queue)
+    - Array-based dynamic *Stacks* (stack)
+
+  What you could use at term :
+
+    - Array-based dynamic *Vectors* (vector)
+    - Skip *Lists* (skipList)
+    - Binary-tree-based *Maps* (map)
+    - *Hashtables* (hash-map)
+    - AVL *Trees* (tree)
+    - *Graphs* (graph)
+
+
+ ___________________
+'                   `
+~ Quick start guide :
+`___________________'
+
+
+  Each directory contains files to use a data structure. In each one you will
+  find several files :
+
+    - A .hxx file that contains macro to define the structure and its functions
+    - A sample of code (main.c, struct.h, struct.c) that show you how to use it
+
+
+  When you want to use a structure, create 2 files struct.h and struct.c. Put
+  the struct.hxx in the same directory. Here is what you should obtain for
+  each file :
+
+  ~> struct.h
+
+    #ifndef STRUCT_H_
+    # define STRUCT_H_
+
+    # include "struct.hxx"
+
+    STRUCT_HEADER(My_type, Struct_name)
+
+    #endif /* !STRUCT_H_ */
+
+  __________
+
+  ~> struct.c
+
+    #include "struct.h"
+
+    STRUCT_SOURCE(My_type, Struct_name)
+
+  Now you can just compile it along with your project and/or package it
+  as a Static / dynamic library.
+

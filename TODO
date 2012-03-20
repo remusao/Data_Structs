@@ -1,0 +1,37 @@
+
+ _______
+'       `
+| Queue :
+`_______'
+
+  - Add a clear / delete method which take a destructor as argument
+
+
+ _______
+'       `
+| Stack :
+`_______'
+
+  /* empty */
+
+
+ ______
+'      `
+| List :
+`______'
+
+  - Debug the segfault
+
+
+ _________________________
+'                         `
+| Structures to implement :
+`_________________________'
+
+
+  - Array-based dynamic *Vectors* (vector)
+  - Skip *Lists* (skipList)
+  - Binary-tree-based *Maps* (map)
+  - *Hashtables* (hash-map)
+  - AVL *Trees* (tree)
+  - *Graphs* (graph)
