@@ -375,22 +375,18 @@ typedef char bool;
   {                                                                           \
     s_node_##NAME* new_node = NULL;                                           \
                                                                               \
-    new_node = malloc(sizeof (s_node_##NAME));                                \
-    if (!new_node)                                                            \
+    if (!(new_node = malloc(sizeof (s_node_##NAME))))                         \
       return;                                                                 \
                                                                               \
     new_node->elt = elt;                                                      \
-                                                                              \
     new_node->previous = list->first;                                         \
     new_node->next = list->first->next;                                       \
     list->first->next = new_node;                                             \
                                                                               \
-    if (!list->size)                                                          \
+    if (!(list->size++))                                                      \
       list->last = new_node;                                                  \
     else                                                                      \
       new_node->next->previous = new_node;                                    \
-                                                                              \
-    list->size++;                                                             \
   }
 
 
@@ -406,8 +402,7 @@ typedef char bool;
   {                                                                           \
     s_node_##NAME* new_node = NULL;                                           \
                                                                               \
-    new_node = malloc(sizeof (s_node_##NAME));                                \
-    if (!new_node)                                                            \
+    if (!(new_node = malloc(sizeof (s_node_##NAME))))                         \
       return;                                                                 \
                                                                               \
     new_node->elt = elt;                                                      \
