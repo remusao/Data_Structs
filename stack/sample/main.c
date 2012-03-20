@@ -89,7 +89,7 @@ main(void)
   stack_push(s, 4);
   stack_push(s, 5);
   printf("\033[32mTop\033[37m element is : %i\n", stack_top(s));
-  printf("\033[32mBottom\033[37m element is : %i\n\n", stack_back(s));
+  printf("\033[32mBottom\033[37m element is : %i\n\n", stack_bottom(s));
 
   printf("\033[32mVisiting\033[37m the stack ..\n");
   stack_visit(s, visitor, NULL);

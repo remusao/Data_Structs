@@ -1,6 +1,8 @@
 /******************************************************************************
 **                                                                           **
-**    Sample code for the stack data structure                               **
+**    C implementation of array-based, dynamic stacks using X-macros         **
+**                                                                           **
+**    Copyright (C) 2011-2012  Remi BERSON                                   **
 **                                                                           **
 **    This program is free software: you can redistribute it and/or modify   **
 **    it under the terms of the GNU General Public License as published by   **
@@ -41,7 +43,7 @@
 //    ~ NAME_size
 //
 //    ~ NAME_top
-//    ~ NAME_back
+//    ~ NAME_bottom
 //
 //    ~ NAME_push
 //    ~ NAME_pop
@@ -164,7 +166,7 @@ typedef char bool;
   TYPE NAME##_top(NAME* stack)
 
 # define STACK_BACK_HEADER(TYPE, NAME)                                        \
-  TYPE NAME##_back(NAME* stack)
+  TYPE NAME##_bottom(NAME* stack)
 
 // Modifiers
 
@@ -329,7 +331,7 @@ typedef char bool;
 /// @return the element at the bottom
 ///
 # define STACK_BACK(TYPE, NAME)                                               \
-  TYPE NAME##_back(NAME* stack)                                               \
+  TYPE NAME##_bottom(NAME* stack)                                             \
   {                                                                           \
     return stack->stack[0];                                                   \
   }
