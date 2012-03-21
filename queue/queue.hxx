@@ -20,35 +20,37 @@
 ******************************************************************************/
 
 
-/// @file queue.hxx
-//
-/// @authors Remi BERSON
-//
-/// @brief This file contains macros that define a C implementation of queues,
-//  based on dynamic arrays. After specialization (see bellow to learn how to
-//  do specialisation), you could use the following functions. Assuming that
-//  you used NAME as the name of the structure and TYPE as the type of the
-//  elements (in general, if you use NAME as the name of your structure, the
-//  functions' names will be built like NAME_action. e.g : NAME_clear), the
-//  names of the functions will be as is :
-//
-//    ~ NAME_create
-//    ~ NAME_ncreate
-//    ~ NAME_delete
-//    ~ NAME_clear
-//
-//    ~ NAME_visit
-//
-//    ~ NAME_empty
-//    ~ NAME_size
-//
-//    ~ NAME_front
-//    ~ NAME_back
-//
-//    ~ NAME_push
-//    ~ NAME_pop
-//
-//  See bellow for more details about this functions.
+/**
+** @file queue.hxx
+**
+** @author Remi BERSON
+**
+** @brief This file contains macros that define a C implementation of queues,
+**  based on dynamic arrays. After specialization (see bellow to learn how to
+**  do specialisation), you could use the following functions. Assuming that
+**  you used NAME as the name of the structure and TYPE as the type of the
+**  elements (in general, if you use NAME as the name of your structure, the
+**  functions' names will be built like NAME_action. e.g : NAME_clear), the
+**  names of the functions will be as is :
+**
+**    ~ NAME_create
+**    ~ NAME_ncreate
+**    ~ NAME_delete
+**    ~ NAME_clear
+**
+**    ~ NAME_visit
+**
+**    ~ NAME_empty
+**    ~ NAME_size
+**
+**    ~ NAME_front
+**    ~ NAME_back
+**
+**    ~ NAME_push
+**    ~ NAME_pop
+**
+**  See bellow for more details about this functions.
+*/
 
 
 #ifndef QUEUE_HXX_
@@ -56,31 +58,39 @@
 
 # include <stdlib.h>
 
-
-/// @brief Defines a "boolean" type. This is much pleasant to use.
+/**
+** @brief Defines a "boolean" type. This is much pleasant to use.
+*/
 typedef char bool;
 
-/// @brief Defines the values TRUE and FALSE to use avec the boolean type.
+/**
+** @brief Defines the value TRUE to use with the boolean type.
+*/
 # define TRUE 1;
+
+/**
+** @brief Defines the value FALSE to use with the boolean type.
+*/
 # define FALSE 0;
 
 
-/// @brief This macro will be used to declare structures and headers for the
-//  queue data structure. As mentionned in the README, you should create a
-//  header file for your "specialized" structure, include queue.hxx and call
-//  this macro to declare all the stuff that will be needed to use it.
-///
-/// @param TYPE Is the type of the element that you want to store in this
-//  structure. If you want to use a queue of integer, simply call this macro
-//  with  int  as argument. (e.g : QUEUE_HEADER(int, ...))
-//  
-/// @param NAME Is the name under which your structure will be known after
-//  calling the macro. For exemple, if you use call the macro as follow :
-//
-//    QUEUE_HEADER(int, queue)
-//
-//  You should use it this way :  queue* my_queue = malloc(sizeof (queue));
-//
+/**
+** @brief This macro will be used to declare structures and headers for the
+**  queue data structure. As mentionned in the README, you should create a
+**  header file for your "specialized" structure, include queue.hxx and call
+**  this macro to declare all the stuff that will be needed to use it.
+**
+** @param TYPE Is the type of the element that you want to store in this
+**  structure. If you want to use a queue of integer, simply call this macro
+**  with  int  as argument. (e.g : QUEUE_HEADER(int, ...))
+**
+** @param NAME Is the name under which your structure will be known after
+**  calling the macro. For exemple, if you use call the macro as follow :
+**
+**    QUEUE_HEADER(int, queue)
+**
+**  You should use it this way :  queue* my_queue = malloc(sizeof (queue));
+*/
 # define QUEUE_HEADER(TYPE, NAME)                                             \
   typedef struct                                                              \
   {                                                                           \
@@ -108,12 +118,13 @@ typedef char bool;
   QUEUE_VISIT_HEADER(TYPE, NAME);
 
 
-/// @brief This macro will be replaced at compile time by the definition of
-//  each function that could be used on queues. As mentionned in the README
-//  you should create a source file for your "specialized" structure, include
-//  your header file (that contains the call to the macro QUEUE_HEADER) and
-//  call the macro with the *same arguments* as in the header.
-///
+/**
+** @brief This macro will be replaced at compile time by the definition of
+**  each function that could be used on queues. As mentionned in the README
+**  you should create a source file for your "specialized" structure, include
+**  your header file (that contains the call to the macro QUEUE_HEADER) and
+**  call the macro with the *same arguments* as in the header.
+*/
 # define QUEUE_SOURCE(TYPE, NAME)                                             \
   QUEUE_NCREATE(TYPE, NAME)                                                   \
   QUEUE_CREATE(TYPE, NAME)                                                    \
@@ -190,9 +201,10 @@ typedef char bool;
  */
 
 
-/// @brief Simply call the ncreate function with a default value,
-//  see bellow for more details.
-//
+/**
+** @brief Simply call the ncreate function with a default value,
+**  see bellow for more details.
+*/
 # define QUEUE_CREATE(TYPE, NAME)                                             \
   NAME* NAME##_create()                                                       \
   {                                                                           \
@@ -200,16 +212,17 @@ typedef char bool;
   }
 
 
-/// @brief Create and initialize a new Queue. A new array is initialized
-//  with at size and containing element of type TYPE.
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param size is the size of the initial array-container of the queue
-//
-/// @return a pointer on the new allocated queue. If an error occured,
-//  a NULL pointer is returned.
-//
+/**
+** @brief Create and initialize a new Queue. A new array is initialized
+**  with at size and containing element of type TYPE.
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param size is the size of the initial array-container of the queue
+**
+** @return a pointer on the new allocated queue. If an error occured,
+**  a NULL pointer is returned.
+*/
 # define QUEUE_NCREATE(TYPE, NAME)                                            \
   NAME* NAME##_ncreate(unsigned size)                                         \
   {                                                                           \
@@ -227,15 +240,16 @@ typedef char bool;
   }
 
 
-/// @brief Starts by calling the function NAME_clear that will free each
-//  element contained in the queue, and then free the queue structure it-self.
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param queue The queue to delete
-/// @param dest The function pointer to call on each element so has to delete
-//  them if needed (this pointer could be NULL if no freeing is needed).
-///
+/**
+** @brief Starts by calling the function NAME_clear that will free each
+**  element contained in the queue, and then free the queue structure it-self.
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param queue The queue to delete
+** @param dest The function pointer to call on each element so has to delete
+**  them if needed (this pointer could be NULL if no freeing is needed).
+*/
 # define QUEUE_DELETE(TYPE, NAME)                                             \
   void NAME##_delete(NAME* queue, destructor_func dest)                       \
   {                                                                           \
@@ -245,16 +259,17 @@ typedef char bool;
   }
 
 
-/// @brief Walk through the queue and, if a destructor has been given, call
-//  it on each element. At the end, we reset the count of elements to 0
-//  (queue empty).
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param queue the queue to clear
-/// @param dest The function pointer to call on each element so has to delete
-//  them if needed (this pointer could be NULL if no freeing is needed).
-///
+/**
+** @brief Walk through the queue and, if a destructor has been given, call
+**  it on each element. At the end, we reset the count of elements to 0
+**  (queue empty).
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param queue the queue to clear
+** @param dest The function pointer to call on each element so has to delete
+**  them if needed (this pointer could be NULL if no freeing is needed).
+*/
 # define QUEUE_CLEAR(TYPE, NAME)                                              \
   void NAME##_clear(NAME* queue, destructor_func dest)                        \
   {                                                                           \
@@ -266,16 +281,17 @@ typedef char bool;
   }
 
 
-/// @brief Visit the queue and call the visitor function on each element.
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param queue is the queue to visit
-/// @param v function pointer to be called on each element in the queue.
-/// @param data is a pointer that will be passed to the visitor at each call,
-//  you could store anything in it if you need it. The pointer will not be
-//  modified by queue functions.
-///
+/**
+** @brief Visit the queue and call the visitor function on each element.
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param queue is the queue to visit
+** @param v function pointer to be called on each element in the queue.
+** @param data is a pointer that will be passed to the visitor at each call,
+**  you could store anything in it if you need it. The pointer will not be
+**  modified by queue functions.
+*/
 # define QUEUE_VISIT(TYPE, NAME)                                              \
   void NAME##_visit(NAME* queue, visitor_func v, void* data)                  \
   {                                                                           \
@@ -284,14 +300,15 @@ typedef char bool;
   }
 
 
-/// @brief Check if the given queue is empty or not
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param queue the queue
-///
-/// @return TRUE (1) if the queue is empty (or NULL) and 0 otherwise
-///
+/**
+** @brief Check if the given queue is empty or not
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param queue the queue
+**
+** @return TRUE (1) if the queue is empty (or NULL) and 0 otherwise
+*/
 # define QUEUE_EMPTY(TYPE, NAME)                                              \
   bool NAME##_empty(NAME* queue)                                              \
   {                                                                           \
@@ -299,14 +316,15 @@ typedef char bool;
   }
 
 
-/// @brief Return the size of the queue
-///
-/// @param TYPE type of the elements that will be stored by the queue2
-/// @param NAME name of the queue structure
-/// @param queue the queue
-///
-/// @return the size of the queue
-///
+/**
+** @brief Return the size of the queue
+**
+** @param TYPE type of the elements that will be stored by the queue2
+** @param NAME name of the queue structure
+** @param queue the queue
+**
+** @return the size of the queue
+*/
 # define QUEUE_SIZE(TYPE, NAME)                                               \
   unsigned NAME##_size(NAME* queue)                                           \
   {                                                                           \
@@ -314,14 +332,15 @@ typedef char bool;
   }
 
 
-/// @brief Return (but don't modify) the element at the front of the queue
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param queue the queue
-///
-/// @return the element at the front
-///
+/**
+** @brief Return (but don't modify) the element at the front of the queue
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param queue the queue
+**
+** @return the element at the front
+*/
 # define QUEUE_FRONT(TYPE, NAME)                                              \
   TYPE NAME##_front(NAME* queue)                                              \
   {                                                                           \
@@ -329,14 +348,15 @@ typedef char bool;
   }
 
 
-/// @brief Return (but don't modify) the element at the back of the queue
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param queue the queue
-///
-/// @return the element at the bottom
-///
+/**
+** @brief Return (but don't modify) the element at the back of the queue
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param queue the queue
+**
+** @return the element at the bottom
+*/
 # define QUEUE_BACK(TYPE, NAME)                                               \
   TYPE NAME##_back(NAME* queue)                                               \
   {                                                                           \
@@ -344,13 +364,14 @@ typedef char bool;
   }
 
 
-/// @brief Push a new element at the end of the queue
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param queue the queue
-/// @param elt element to push in the queue
-///
+/**
+** @brief Push a new element at the end of the queue
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param queue the queue
+** @param elt element to push in the queue
+*/
 # define QUEUE_PUSH(TYPE, NAME)                                               \
   void NAME##_push(NAME* queue, TYPE elt)                                     \
   {                                                                           \
@@ -369,14 +390,15 @@ typedef char bool;
   }
 
 
-/// @brief Return and remove the element at the front of the queue
-///
-/// @param TYPE type of the elements that will be stored by the queue
-/// @param NAME name of the queue structure
-/// @param queue the queue
-///
-/// @return the front-element
-///
+/**
+** @brief Return and remove the element at the front of the queue
+**
+** @param TYPE type of the elements that will be stored by the queue
+** @param NAME name of the queue structure
+** @param queue the queue
+**
+** @return the front-element
+*/
 # define QUEUE_POP(TYPE, NAME)                                                \
   TYPE NAME##_pop(NAME* queue)                                                \
   {                                                                           \

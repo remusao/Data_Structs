@@ -20,35 +20,37 @@
 ******************************************************************************/
 
 
-/// @file stack.hxx
-//
-/// @authors Remi BERSON
-//
-/// @brief This file contains macros that define a C implementation of stacks,
-//  based on dynamic arrays. After specialization (see bellow to learn how to
-//  do specialisation), you could use the following functions. Assuming that
-//  you used NAME as the name of the structure and TYPE as the type of the
-//  elements (in general, if you use NAME as the name of your structure, the
-//  functions' names will be built like NAME_action. e.g : NAME_clear), the
-//  names of the functions will be as is :
-//
-//    ~ NAME_create
-//    ~ NAME_ncreate
-//    ~ NAME_delete
-//    ~ NAME_clear
-//
-//    ~ NAME_visit
-//
-//    ~ NAME_empty
-//    ~ NAME_size
-//
-//    ~ NAME_top
-//    ~ NAME_bottom
-//
-//    ~ NAME_push
-//    ~ NAME_pop
-//
-//  See bellow for more details about this functions.
+/**
+** @file stack.hxx
+**
+** @author Remi BERSON
+**
+** @brief This file contains macros that define a C implementation of stacks,
+**  based on dynamic arrays. After specialization (see bellow to learn how to
+**  do specialisation), you could use the following functions. Assuming that
+**  you used NAME as the name of the structure and TYPE as the type of the
+**  elements (in general, if you use NAME as the name of your structure, the
+**  functions' names will be built like NAME_action. e.g : NAME_clear), the
+**  names of the functions will be as is :
+**
+**    ~ NAME_create
+**    ~ NAME_ncreate
+**    ~ NAME_delete
+**    ~ NAME_clear
+**
+**    ~ NAME_visit
+**
+**    ~ NAME_empty
+**    ~ NAME_size
+**
+**    ~ NAME_top
+**    ~ NAME_bottom
+**
+**    ~ NAME_push
+**    ~ NAME_pop
+**
+**  See bellow for more details about this functions.
+*/
 
 
 #ifndef STACK_HXX_
@@ -56,30 +58,39 @@
 
 # include <stdlib.h>
 
-/// @brief Defines a "boolean" type. This is much pleasant to use.
+/**
+** @brief Defines a "boolean" type. This is much pleasant to use.
+*/
 typedef char bool;
 
-/// @brief Defines the values TRUE and FALSE to use avec the boolean type.
+/**
+** @brief Defines the value TRUE to use with the boolean type.
+*/
 # define TRUE 1;
+
+/**
+** @brief Defines the value FALSE to use with the boolean type.
+*/
 # define FALSE 0;
 
 
-/// @brief This macro will be used to declare structures and headers for the
-//  stack data structure. As mentionned in the README, you should create a
-//  header file for your "specialized" structure, include stack.hxx and call
-//  this macro to declare all the stuff that will be needed to use it.
-///
-/// @param TYPE Is the type of the element that you want to store in this
-//  structure. If you want to use a stack of integers, simply call this macro
-//  with  int  as argument. (e.g : STACK_HEADER(int, ...))
-//  
-/// @param NAME Is the name under which your structure will be known after
-//  calling the macro. For exemple, if you use call the macro as follow :
-//
-//    STACK_HEADER(int, stack)
-//
-//  You should use it this way :  stack* my_stack = malloc(sizeof (stack));
-///
+/**
+** @brief This macro will be used to declare structures and headers for the
+**  stack data structure. As mentionned in the README, you should create a
+**  header file for your "specialized" structure, include stack.hxx and call
+**  this macro to declare all the stuff that will be needed to use it.
+**
+** @param TYPE Is the type of the element that you want to store in this
+**  structure. If you want to use a stack of integers, simply call this macro
+**  with  int  as argument. (e.g : STACK_HEADER(int, ...))
+**  
+** @param NAME Is the name under which your structure will be known after
+**  calling the macro. For exemple, if you use call the macro as follow :
+**
+**    STACK_HEADER(int, stack)
+**
+**  You should use it this way :  stack* my_stack = malloc(sizeof (stack));
+*/
 # define STACK_HEADER(TYPE, NAME)                                             \
   typedef struct                                                              \
   {                                                                           \
@@ -105,12 +116,13 @@ typedef char bool;
   STACK_VISIT_HEADER(TYPE, NAME);
 
 
-/// @brief This macro will be replaced at compile time by the definition of
-//  each function that could be used on stacks. As mentionned in the README
-//  you should create a source file for your "specialized" structure, include
-//  your header file (that contains the call to the macro STACK_HEADER) and
-//  call the macro with the *same arguments* as in the header.
-///
+/**
+** @brief This macro will be replaced at compile time by the definition of
+**  each function that could be used on stacks. As mentionned in the README
+**  you should create a source file for your "specialized" structure, include
+**  your header file (that contains the call to the macro STACK_HEADER) and
+**  call the macro with the *same arguments* as in the header.
+*/
 # define STACK_SOURCE(TYPE, NAME)                                             \
   STACK_NCREATE(TYPE, NAME)                                                   \
   STACK_CREATE(TYPE, NAME)                                                    \
@@ -184,9 +196,10 @@ typedef char bool;
  */
 
 
-/// @brief Simply call the ncreate function with a default value,
-//  see bellow for more details.
-//
+/**
+** @brief Simply call the ncreate function with a default value,
+**  see bellow for more details.
+*/
 # define STACK_CREATE(TYPE, NAME)                                             \
   NAME* NAME##_create()                                                       \
   {                                                                           \
@@ -194,16 +207,17 @@ typedef char bool;
   }
 
 
-/// @brief Create and initialize a new Stack. A new array is initialized
-//  with a size and containing element of type TYPE.
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param size is the size of the initial array-container of the stack
-//
-/// @return a pointer on the new allocated stack. If an error occured,
-//  a NULL pointer is returned.
-//
+/**
+** @brief Create and initialize a new Stack. A new array is initialized
+**  with a size and containing element of type TYPE.
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param size is the size of the initial array-container of the stack
+**
+** @return a pointer on the new allocated stack. If an error occured,
+**  a NULL pointer is returned.
+*/
 # define STACK_NCREATE(TYPE, NAME)                                            \
   NAME* NAME##_ncreate(unsigned size)                                         \
   {                                                                           \
@@ -220,15 +234,16 @@ typedef char bool;
   }
 
 
-/// @brief Starts by calling the function NAME_clear that will free each
-//  element contained in the stack, and then free the stack structure it-self.
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param stack The stack to delete
-/// @param dest The function pointer to call on each element so as to delete
-//  them if needed (this pointer could be NULL if no freeing is needed).
-///
+/**
+** @brief Starts by calling the function NAME_clear that will free each
+**  element contained in the stack, and then free the stack structure it-self.
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param stack The stack to delete
+** @param dest The function pointer to call on each element so as to delete
+**  them if needed (this pointer could be NULL if no freeing is needed).
+*/
 # define STACK_DELETE(TYPE, NAME)                                             \
   void NAME##_delete(NAME* stack, destructor_func dest)                       \
   {                                                                           \
@@ -238,16 +253,17 @@ typedef char bool;
   }
 
 
-/// @brief Walk through the stack and, if a destructor has been given, call
-//  it on each element. At the end, we reset the count of elements to 0
-//  (stack empty).
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param stack the stack to clear
-/// @param dest The function pointer to call on each element so has to delete
-//  them if needed (this pointer could be NULL if no freeing is needed).
-///
+/**
+** @brief Walk through the stack and, if a destructor has been given, call
+**  it on each element. At the end, we reset the count of elements to 0
+**  (stack empty).
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param stack the stack to clear
+** @param dest The function pointer to call on each element so has to delete
+**  them if needed (this pointer could be NULL if no freeing is needed).
+*/
 # define STACK_CLEAR(TYPE, NAME)                                              \
   void NAME##_clear(NAME* stack, destructor_func dest)                        \
   {                                                                           \
@@ -258,16 +274,17 @@ typedef char bool;
   }
 
 
-/// @brief Visit the stack and call the visitor function on each element.
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param stack is the stack to visit
-/// @param v function pointer to be called on each element in the stack.
-/// @param data is a pointer that will be passed to the visitor at each call,
-//  you could store anything in it if you need it. The pointer will not be
-//  modified by stack functions.
-///
+/**
+** @brief Visit the stack and call the visitor function on each element.
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param stack is the stack to visit
+** @param v function pointer to be called on each element in the stack.
+** @param data is a pointer that will be passed to the visitor at each call,
+**  you could store anything in it if you need it. The pointer will not be
+**  modified by stack functions.
+*/
 # define STACK_VISIT(TYPE, NAME)                                              \
   void NAME##_visit(NAME* stack, visitor_func v, void* data)                  \
   {                                                                           \
@@ -276,14 +293,15 @@ typedef char bool;
   }
 
 
-/// @brief Check if the given stack is empty or not
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param stack the stack
-///
-/// @return TRUE (1) if the stack is empty (or NULL) and 0 otherwise
-///
+/**
+** @brief Check if the given stack is empty or not
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param stack the stack
+**
+** @return TRUE (1) if the stack is empty (or NULL) and 0 otherwise
+*/
 # define STACK_EMPTY(TYPE, NAME)                                              \
   bool NAME##_empty(NAME* stack)                                              \
   {                                                                           \
@@ -291,14 +309,15 @@ typedef char bool;
   }
 
 
-/// @brief Return the size of the stack
-///
-/// @param TYPE type of the elements that will be stored by the stack2
-/// @param NAME name of the stack structure
-/// @param stack the stack
-///
-/// @return the size of the stack
-///
+/**
+** @brief Return the size of the stack
+**
+** @param TYPE type of the elements that will be stored by the stack2
+** @param NAME name of the stack structure
+** @param stack the stack
+**
+** @return the size of the stack
+*/
 # define STACK_SIZE(TYPE, NAME)                                               \
   unsigned NAME##_size(NAME* stack)                                           \
   {                                                                           \
@@ -306,14 +325,15 @@ typedef char bool;
   }
 
 
-/// @brief Return (but don't modify) the element at the top of the stack
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param stack the stack
-///
-/// @return the element at the top
-///
+/**
+** @brief Return (but don't modify) the element at the top of the stack
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param stack the stack
+**
+** @return the element at the top
+*/
 # define STACK_FRONT(TYPE, NAME)                                              \
   TYPE NAME##_top(NAME* stack)                                                \
   {                                                                           \
@@ -321,14 +341,15 @@ typedef char bool;
   }
 
 
-/// @brief Return (but don't modify) the element at the bottom of the stack
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param stack the stack
-///
-/// @return the element at the bottom
-///
+/**
+** @brief Return (but don't modify) the element at the bottom of the stack
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param stack the stack
+**
+** @return the element at the bottom
+*/
 # define STACK_BACK(TYPE, NAME)                                               \
   TYPE NAME##_bottom(NAME* stack)                                             \
   {                                                                           \
@@ -336,13 +357,14 @@ typedef char bool;
   }
 
 
-/// @brief Push a new element at the top of the stack
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param stack the stack
-/// @param elt element to push on the stack
-///
+/**
+** @brief Push a new element at the top of the stack
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param stack the stack
+** @param elt element to push on the stack
+*/
 # define STACK_PUSH(TYPE, NAME)                                               \
   void NAME##_push(NAME* stack, TYPE elt)                                     \
   {                                                                           \
@@ -356,14 +378,15 @@ typedef char bool;
   }
 
 
-/// @brief Return and remove the element at the top of the stack
-///
-/// @param TYPE type of the elements that will be stored by the stack
-/// @param NAME name of the stack structure
-/// @param stack the stack
-///
-/// @return the top-element
-///
+/**
+** @brief Return and remove the element at the top of the stack
+**
+** @param TYPE type of the elements that will be stored by the stack
+** @param NAME name of the stack structure
+** @param stack the stack
+**
+** @return the top-element
+*/
 # define STACK_POP(TYPE, NAME)                                                \
   TYPE NAME##_pop(NAME* stack)                                                \
   {                                                                           \

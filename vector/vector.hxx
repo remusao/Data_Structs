@@ -19,21 +19,21 @@
 **                                                                           **
 ******************************************************************************/
 
-/// @file vector.hxx
-//
-/// @authors Remi BERSON
-//
-/// @brief This file contains macros that define a C implementation of vector,
-//  based on dynamic arrays. After specialization (see bellow to learn how to
-//  do specialisation), you could use the following functions. Assuming that
-//  you used NAME as the name of the structure and TYPE as the type of the
-//  elements (in general, if you use NAME as the name of your structure, the
-//  functions' names will be built like NAME_action. e.g : NAME_clear), the
-//  names of the functions will be as is :
-//
-//
-//  See bellow for more details about this functions.
-
+/** @file vector.hxx
+**
+** @author Remi BERSON
+**
+** @brief This file contains macros that define a C implementation of vector,
+**  based on dynamic arrays. After specialization (see bellow to learn how to
+**  do specialisation), you could use the following functions. Assuming that
+**  you used NAME as the name of the structure and TYPE as the type of the
+**  elements (in general, if you use NAME as the name of your structure, the
+**  functions' names will be built like NAME_action. e.g : NAME_clear), the
+**  names of the functions will be as is :
+**
+**
+**  See bellow for more details about this functions.
+*/
 
 #ifndef VECTOR_HXX_
 # define VECTOR_HXX_
@@ -43,26 +43,27 @@
 /// @brief Defines a "boolean" type. This is much pleasant to use.
 typedef char bool;
 
-/// @brief Defines the values TRUE and FALSE to use avec the boolean type.
+/// @brief Defines the value TRUE to use with the boolean type.
 # define TRUE 1;
+/// @brief Defines the value FALSE to use with the boolean type.
 # define FALSE 0;
 
 
 /// @brief This macro will be used to declare structures and headers for the
-//  vector data structure. As mentionned in the README, you should create a
-//  header file for your "specialized" structure, include vector.hxx and call
-//  this macro to declare all the stuff that will be needed to use it.
+///  vector data structure. As mentionned in the README, you should create a
+///  header file for your "specialized" structure, include vector.hxx and call
+///  this macro to declare all the stuff that will be needed to use it.
 ///
 /// @param TYPE Is the type of the element that you want to store in this
-//  structure. If you want to use a vector of integers, simply call this macro
-//  with  int  as argument. (e.g : VECTOR_HEADER(int, ...))
-//  
+///  structure. If you want to use a vector of integers, simply call this macro
+///  with  int  as argument. (e.g : VECTOR_HEADER(int, ...))
+///  
 /// @param NAME Is the name under which your structure will be known after
-//  calling the macro. For exemple, if you use call the macro as follow :
-//
-//    VECTOR_HEADER(int, vector)
-//
-//  You should use it this way :  vector* my_vector = malloc(sizeof (vector));
+///  calling the macro. For exemple, if you use call the macro as follow :
+///
+///    VECTOR_HEADER(int, vector)
+///
+///  You should use it this way :  vector* my_vector = malloc(sizeof (vector));
 ///
 # define VECTOR_HEADER(TYPE, NAME)                                            \
   typedef struct                                                              \
@@ -98,10 +99,10 @@ typedef char bool;
 
 
 /// @brief This macro will be replaced at compile time by the definition of
-//  each function that could be used on vectors. As mentionned in the README
-//  you should create a source file for your "specialized" structure, include
-//  your header file (that contains the call to the macro VECTOR_HEADER) and
-//  call the macro with the *same arguments* as in the header.
+///  each function that could be used on vectors. As mentionned in the README
+///  you should create a source file for your "specialized" structure, include
+///  your header file (that contains the call to the macro VECTOR_HEADER) and
+///  call the macro with the *same arguments* as in the header.
 ///
 # define VECTOR_SOURCE(TYPE, NAME)                                            \
   VECTOR_CREATE(TYPE, NAME)                                                   \

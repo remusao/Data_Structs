@@ -20,37 +20,38 @@
 ******************************************************************************/
 
 
-/// @file list.hxx
-//
-/// @authors Remi BERSON
-//
-/// @brief This file contains macros that define a C implementation of
-//  double-linked dynamic lists. After specialization (see bellow to learn
-//  how to do specialisation), you could use the following functions.
-//  Assuming that you used NAME as the name of the structure and TYPE as
-//  the type of the elements (in general, if you use NAME as the name of
-//  your structure, the functions' names will be built like NAME_action.
-//  e.g : NAME_clear), the names of the functions will be as is :
-//
-//    ~ NAME_create
-//    ~ NAME_delete
-//    ~ NAME_clear
-//
-//    ~ NAME_visit
-//
-//    ~ NAME_empty
-//    ~ NAME_size
-//
-//    ~ NAME_front
-//    ~ NAME_back
-//
-//    ~ NAME_push_front
-//    ~ NAME_push_back
-//    ~ NAME_pop_back
-//    ~ NAME_pop_front
-//    ~ NAME_insert
-//
-//  See bellow for more details about this functions.
+/** @file list.hxx
+**
+**  @author Remi BERSON
+**
+**  @brief This file contains macros that define a C implementation of
+**  double-linked dynamic lists. After specialization (see bellow to learn
+**  how to do specialisation), you could use the following functions.
+**  Assuming that you used NAME as the name of the structure and TYPE as
+**  the type of the elements (in general, if you use NAME as the name of
+**  your structure, the functions' names will be built like NAME_action.
+**  e.g : NAME_clear), the names of the functions will be as is :
+**
+**    ~ NAME_create
+**    ~ NAME_delete
+**    ~ NAME_clear
+**
+**    ~ NAME_visit
+**
+**    ~ NAME_empty
+**    ~ NAME_size
+**
+**    ~ NAME_front
+**    ~ NAME_back
+**
+**    ~ NAME_push_front
+**    ~ NAME_push_back
+**    ~ NAME_pop_back
+**    ~ NAME_pop_front
+**    ~ NAME_insert
+**
+**  See bellow for more details about this functions.
+*/
 
 
 #ifndef LIST_HXX_
@@ -58,30 +59,38 @@
 
 # include <stdlib.h>
 
-/// @brief Defines a "boolean" type. This is much pleasant to use.
-typedef char bool;
 
-/// @brief Defines the values TRUE and FALSE to use avec the boolean type.
+/**
+**  @brief Defines the value TRUE to use with the boolean type.
+*/
 # define TRUE 1
+/**
+**  @brief Defines the value FALSE to use with the boolean type.
+*/
 # define FALSE 0
 
+/**
+**  @brief Defines a "boolean" type with a char.
+*/
+typedef char bool;
 
-/// @brief This macro will be used to declare structures and headers for the
-//  list data structure. As mentionned in the README, you should create a
-//  header file for your "specialized" structure, include stack.hxx and call
-//  this macro to declare all the stuff that will be needed to use it.
-///
-/// @param TYPE Is the type of the element that you want to store in this
-//  structure. If you want to use a list of integers, simply call this macro
-//  with  int  as argument. (e.g : LIST_HEADER(int, ...))
-//  
-/// @param NAME Is the name under which your structure will be known after
-//  calling the macro. For exemple, if you use call the macro as follow :
-//
-//    LIST_HEADER(int, list)
-//
-//  You should use it this way :  list* my_list = malloc(sizeof (list));
-///
+/**
+** @brief This macro will be used to declare structures and headers for the
+** list data structure. As mentionned in the README, you should create a
+** header file for your "specialized" structure, include stack.hxx and call
+** this macro to declare all the stuff that will be needed to use it.
+**
+** @param TYPE Is the type of the element that you want to store in this
+**  structure. If you want to use a list of integers, simply call this macro
+**  with  int  as argument. (e.g : LIST_HEADER(int, ...))
+**  
+** @param NAME Is the name under which your structure will be known after
+**  calling the macro. For exemple, if you use call the macro as follow :
+**
+**    LIST_HEADER(int, list)
+**
+**  You should use it this way :  list* my_list = malloc(sizeof (list));
+*/
 # define LIST_HEADER(TYPE, NAME)                                              \
                                                                               \
   typedef struct NAME NAME;                                                   \
@@ -119,13 +128,13 @@ typedef char bool;
   LIST_CLEAR_HEADER(TYPE, NAME);
 
 
-
-/// @brief This macro will be replaced at compile time by the definition of
-//  each function that could be used on lists. As mentionned in the README
-//  you should create a source file for your "specialized" structure, include
-//  your header file (that contains the call to the macro LIST_HEADER) and
-//  call the macro with the *same arguments* as in the header.
-///
+/**
+** @brief This macro will be replaced at compile time by the definition of
+**  each function that could be used on lists. As mentionned in the README
+**  you should create a source file for your "specialized" structure, include
+**  your header file (that contains the call to the macro LIST_HEADER) and
+**  call the macro with the *same arguments* as in the header.
+*/
 # define LIST_SOURCE(TYPE, NAME)                                              \
   LIST_CREATE(TYPE, NAME)                                                     \
   LIST_SIZE(TYPE, NAME)                                                       \
@@ -217,17 +226,17 @@ typedef char bool;
  */
 
 
-
-/// @brief Create a new list composed of the list struct and a unique element
-//  which is the sentry. Because we know that there is always at least one
-//  element in the list, the algorithms are much more simple.
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-///
-/// @return a pointer on the new allocated list. If an error occured, a NULL
-//  pointer is returned.
-//
+/**
+** @brief Create a new list composed of the list struct and a unique element
+**  which is the sentry. Because we know that there is always at least one
+**  element in the list, the algorithms are much more simple.
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+**
+** @return a pointer on the new allocated list. If an error occured, a NULL
+**  pointer is returned.
+*/
 # define LIST_CREATE(TYPE, NAME)                                              \
   NAME* NAME##_create()                                                       \
   {                                                                           \
@@ -258,19 +267,19 @@ typedef char bool;
   }
 
 
-
-/// @brief Starts by calling the function NAME_clear that will free each node
-//  stored in the list (except the sentry that remains in the list until
-//  destruction). After clearing the list, the sentry and the list structure
-//  are free.
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list to delete
-/// @param dest a function pointer that will be called on each element of the
-//  list so as to as to delete them if needed (this pointer could be NULL if
-//  no freeing is needed).
-///
+/**
+** @brief Starts by calling the function NAME_clear that will free each node
+**  stored in the list (except the sentry that remains in the list until
+**  destruction). After clearing the list, the sentry and the list structure
+**  are free.
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list to delete
+** @param dest a function pointer that will be called on each element of the
+**  list so as to as to delete them if needed (this pointer could be NULL if
+**  no freeing is needed).
+*/
 # define LIST_DELETE(TYPE, NAME)                                              \
   void NAME##_delete(NAME* list, destructor_func dest)                        \
   {                                                                           \
@@ -280,17 +289,18 @@ typedef char bool;
   }
 
 
-/// @brief Walk through the list and, if a destructor has been given, call
-//  if on each element of the list. We also reset the size to 0 (empty list)
-//  and make the last en first elements of the list to be the sentry.
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list to clear
-/// @param dest a function pointer that will be called on each element of the
-//  list so as to as to delete them if needed (this pointer could be NULL if
-//  no freeing is needed).
-///
+/**
+** @brief Walk through the list and, if a destructor has been given, call
+**  if on each element of the list. We also reset the size to 0 (empty list)
+**  and make the last en first elements of the list to be the sentry.
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list to clear
+** @param dest a function pointer that will be called on each element of the
+**  list so as to as to delete them if needed (this pointer could be NULL if
+**  no freeing is needed).
+*/
 # define LIST_CLEAR(TYPE, NAME)                                               \
   void NAME##_clear(NAME* list, destructor_func dest)                         \
   {                                                                           \
@@ -309,14 +319,16 @@ typedef char bool;
   }
 
 
-/// @brief return the number of elements in the list (we do not take into
-//  account the sentry).
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-///
-/// @return the size of the list
+/**
+** @brief return the number of elements in the list (we do not take into
+**  account the sentry).
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+**
+** @return the size of the list
+*/
 # define LIST_SIZE(TYPE, NAME)                                                \
   unsigned NAME##_size(NAME* list)                                            \
   {                                                                           \
@@ -324,16 +336,17 @@ typedef char bool;
   }
 
 
-/// @brief Visit the stack and call the visitor function on each element.
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list to visit
-/// @param v function pointer to be called on each element of the list
-/// @param data is a pointer that will be passed to the visitor at each call,
-//  you could store anything in it if you need it. The pointer will not be
-//  modified by list functions.
-///
+/**
+** @brief Visit the stack and call the visitor function on each element.
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list to visit
+** @param v function pointer to be called on each element of the list
+** @param data is a pointer that will be passed to the visitor at each call,
+**  you could store anything in it if you need it. The pointer will not be
+**  modified by list functions.
+*/
 # define LIST_VISIT(TYPE, NAME)                                               \
   void NAME##_visit(NAME* list, visitor_func v, void* data)                   \
   {                                                                           \
@@ -346,15 +359,16 @@ typedef char bool;
   }
 
 
-/// @brief Check if the given list is empty or not (do not take into account
-//  the senty node).
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-///
-/// @return TRUE (1), if the list is empty (or NULL), FALSE (0) otherwise
-//
+/**
+** @brief Check if the given list is empty or not (do not take into account
+**  the senty node).
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+**
+** @return TRUE (1), if the list is empty (or NULL), FALSE (0) otherwise
+*/
 # define LIST_EMPTY(TYPE, NAME)                                               \
   bool NAME##_empty(NAME* list)                                               \
   {                                                                           \
@@ -362,14 +376,15 @@ typedef char bool;
   }
 
 
-/// @brief Add an element at the begenning of the list. (Of course, begening
-//  means just *after* the sentry).
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-/// @param elt the element of type TYPE to add
-///
+/**
+** @brief Add an element at the begenning of the list. (Of course, begening
+**  means just *after* the sentry).
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+** @param elt the element of type TYPE to add
+*/
 # define LIST_PUSH_FRONT(TYPE, NAME)                                          \
   void NAME##_push_front(NAME* list, TYPE elt)                                \
   {                                                                           \
@@ -390,13 +405,14 @@ typedef char bool;
   }
 
 
-/// @brief Add an element at the end of the list.
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-/// @param elt the element of type TYPE to add
-///
+/**
+** @brief Add an element at the end of the list.
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+** @param elt the element of type TYPE to add
+*/
 # define LIST_PUSH_BACK(TYPE, NAME)                                           \
   void NAME##_push_back(NAME* list, TYPE elt)                                 \
   {                                                                           \
@@ -416,15 +432,16 @@ typedef char bool;
   }
 
 
-/// @brief Remove and return the first element of the list (the first element
-//  just *after* the sentry).
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-///
-/// @return the first element of the list
-///
+/**
+** @brief Remove and return the first element of the list (the first element
+**  just *after* the sentry).
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+**
+** @return the first element of the list
+*/
 # define LIST_POP_FRONT(TYPE, NAME)                                           \
   TYPE NAME##_pop_front(NAME* list)                                           \
   {                                                                           \
@@ -443,14 +460,15 @@ typedef char bool;
   }
 
 
-/// @brief Remove and return the last element of the list.
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-///
-/// @return the last element of the list
-///
+/**
+** @brief Remove and return the last element of the list.
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+**
+** @return the last element of the list
+*/
 # define LIST_POP_BACK(TYPE, NAME)                                            \
   TYPE NAME##_pop_back(NAME* list)                                            \
   {                                                                           \
@@ -466,17 +484,18 @@ typedef char bool;
   }
 
 
-/// @brief Insert an element at a given position in the list. There are 2
-//  particular cases :
-//    1) pos == 0, in that case we do a push_front
-//    2) pos >= size(list), in that case we do a push_back
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-/// @param pos position to insert the new element
-/// @param elt new element to insert
-///
+/**
+** @brief Insert an element at a given position in the list. There are 2
+** particular cases :
+**   1) pos == 0, in that case we do a push_front
+**   2) pos >= size(list), in that case we do a push_back
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+** @param pos position to insert the new element
+** @param elt new element to insert
+*/
 # define LIST_INSERT(TYPE, NAME)                                              \
   void NAME##_insert(NAME* list, unsigned pos, TYPE elt)                      \
   {                                                                           \
@@ -509,14 +528,16 @@ typedef char bool;
   }
 
 
-/// @brief return but don't remove the first element of the list (the first
-//  element *after* the sentry)
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-///
-/// @return the first element of the list
+/**
+** @brief return but don't remove the first element of the list (the first
+**  element *after* the sentry)
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+**
+** @return the first element of the list
+*/
 # define LIST_FRONT(TYPE, NAME)                                               \
   TYPE NAME##_front(NAME* list)                                               \
   {                                                                           \
@@ -524,13 +545,15 @@ typedef char bool;
   }
 
 
-/// @brief return but don't remove the last element of the list.
-///
-/// @param TYPE type of the elements that will be stored in the list
-/// @param NAME name of the list structure
-/// @param list the list
-///
-/// @return the last element of the list
+/**
+** @brief return but don't remove the last element of the list.
+**
+** @param TYPE type of the elements that will be stored in the list
+** @param NAME name of the list structure
+** @param list the list
+**
+** @return the last element of the list
+*/
 # define LIST_BACK(TYPE, NAME)                                                \
   TYPE NAME##_back(NAME* list)                                                \
   {                                                                           \

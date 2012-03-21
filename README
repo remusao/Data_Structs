@@ -77,3 +77,18 @@
   Now you can just compile it along with your project and/or package it
   as a Static / dynamic library.
 
+
+
+ _______________
+'               `
+| Documentation :
+`_______________'
+
+
+  The source code is document with doxygen-style. If you want to generate
+  the documentation (html, latex and man pages) do as follow :
+
+    1) Go into the doc/ directory : `cd doc`
+    2) Run : `make`
+    3) The doc is now generated !
+
