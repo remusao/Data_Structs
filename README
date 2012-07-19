@@ -85,7 +85,7 @@
 `_______________'
 
 
-  The source code is document with doxygen-style. If you want to generate
+  The source code is documented with doxygen-style. If you want to generate
   the documentation (html, latex and man pages) do as follow :
 
     1) Go into the doc/ directory : `cd doc`
